@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,14 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	private void Awake()
 	{
 		nameFormat = name.text;
+		button.onClick.AddListener(Button_OnClick);
 	}
+
+	private void Button_OnClick()
+	{
+		throw new NotImplementedException();
+	}
+
 	public void SetName(int index)
 	{
 		name.text = string.Format(nameFormat, index);

@@ -6,13 +6,15 @@ public class EmoteWheelManager : MonoBehaviour
 {
     [SerializeField] private KeyCode input;
     [SerializeField] private EmoteWheel wheel;
+	[SerializeField] private int emoteCount;
+	[SerializeField] private float radius;
 
     private bool isWheelActive;
 
 	private void Awake()
 	{
 		wheel.gameObject.SetActive(isWheelActive);
-
+		wheel.SetEmoteOnWheel(emoteCount, radius);
 	}
 
 	// Update is called once per frame
