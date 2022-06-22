@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6effecc2a37327249971b0b84596ddb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: {fileID: 3669930973166389072}
+  nameText: {fileID: 3669930973166389072}
   hover: {fileID: 2758092366524133888}
   button: {fileID: 4077325686499901992}
 --- !u!1 &8977927567097995240
@@ -403,4 +403,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Emote {0}
+  m_Text: 
