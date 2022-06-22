@@ -302,7 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8625604fdb757344ba470a5ea152be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emoteCount: 4
   emotePrefab: {fileID: 9059619221440801329, guid: a960caa548ad5bc4e8999110d0988c19, type: 3}
   emoteContainer: {fileID: 1100995240}
 --- !u!1 &487458714
@@ -518,6 +517,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: 101
   wheel: {fileID: 434231575}
+  radius: 200
+  emotes:
+  - {fileID: 11400000, guid: b7548fc62efffb641875b46dc583f0ed, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
