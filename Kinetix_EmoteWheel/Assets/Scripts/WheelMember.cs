@@ -24,6 +24,7 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	private void Button_OnClick()
 	{
 		OnEmoteSelected?.Invoke(this, emoteInfo);
+		hover.gameObject.SetActive(false);
 
 	}
 

@@ -519,6 +519,7 @@ MonoBehaviour:
   input: 101
   wheel: {fileID: 434231575}
   radius: 200
+  emoteCount: 4
   emotes:
   - {fileID: 11400000, guid: b059506da50b56f4ab25f2b388530e9d, type: 2}
   - {fileID: 11400000, guid: 95a4c661935ae0a449a22782ef19b961, type: 2}
