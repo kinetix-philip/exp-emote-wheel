@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EmoteInfo 1
   m_EditorClassIdentifier: 
   emoteName: Aurevoir
-  placeIndex: 2
+  indexOnWheel: 1

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EmoteInfo 3
   m_EditorClassIdentifier: 
   emoteName: OSKOUR
-  placeIndex: 4
+  indexOnWheel: 3

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EmoteInfo 2
   m_EditorClassIdentifier: 
   emoteName: MDR
-  placeIndex: 3
+  indexOnWheel: 2

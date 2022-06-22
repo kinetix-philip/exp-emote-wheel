@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class EmoteInfo : ScriptableObject
 {
     [SerializeField] private string emoteName;
+    [SerializeField] private int indexOnWheel;
 
 	public string EmoteName => emoteName;
+	public int IndexOnWheel { get => indexOnWheel; set => indexOnWheel = value; }
 	//[SerializeField] private Image EmoteLogo;
 }

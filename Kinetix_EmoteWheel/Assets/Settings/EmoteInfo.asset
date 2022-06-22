@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: EmoteInfo
   m_EditorClassIdentifier: 
   emoteName: Coucou
+  indexOnWheel: 4
