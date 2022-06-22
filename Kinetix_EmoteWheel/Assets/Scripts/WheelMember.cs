@@ -5,27 +5,32 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public delegate void WheelMemberEventHandler(WheelMember sender, EmoteInfo info); 
 public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Text name;
+    [SerializeField] private Text nameText;
     [SerializeField] private Image hover;
     [SerializeField] private Button button;
-    private string nameFormat;
+
+	public event WheelMemberEventHandler OnEmoteSelected;
+
+	private EmoteInfo emoteInfo;
 
 	private void Awake()
 	{
-		nameFormat = name.text;
 		button.onClick.AddListener(Button_OnClick);
 	}
 
 	private void Button_OnClick()
 	{
-		throw new NotImplementedException();
+		OnEmoteSelected?.Invoke(this, emoteInfo);
+
 	}
 
-	public void SetName(int index)
+	public void Init(EmoteInfo info)
 	{
-		name.text = string.Format(nameFormat, index);
+		emoteInfo = info;
+		nameText.text = info.EmoteName;
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
