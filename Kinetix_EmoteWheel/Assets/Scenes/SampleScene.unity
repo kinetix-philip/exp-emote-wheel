@@ -282,6 +282,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1100995240}
+  - {fileID: 483707088}
   m_Father: {fileID: 1221178645}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -304,7 +305,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emotePrefab: {fileID: 9059619221440801329, guid: a960caa548ad5bc4e8999110d0988c19, type: 3}
   emplacementPrefab: {fileID: 1286221332, guid: f06045399441b054da205f6fb2e7fd33, type: 3}
+  waitingTransform: {fileID: 483707088}
   emoteContainer: {fileID: 1100995240}
+--- !u!1 &483707087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 483707088}
+  m_Layer: 5
+  m_Name: WaitingZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &483707088
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483707087}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 434231574}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -303, y: -299}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &487458714
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,11 +557,14 @@ MonoBehaviour:
   wheel: {fileID: 434231575}
   radius: 200
   emoteCount: 4
+  wheelIndexIn: 2
+  wheelIndexOut: 3
   emotes:
   - {fileID: 11400000, guid: b059506da50b56f4ab25f2b388530e9d, type: 2}
   - {fileID: 11400000, guid: 95a4c661935ae0a449a22782ef19b961, type: 2}
   - {fileID: 11400000, guid: 5b781e950ae71e24795f457cb258b155, type: 2}
   - {fileID: 11400000, guid: b7548fc62efffb641875b46dc583f0ed, type: 2}
+  - {fileID: 11400000, guid: 358c6d2dce0268740b0d5cdd3c27bbeb, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

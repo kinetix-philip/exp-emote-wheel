@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emoteName: OSKOUR
   indexOnWheel: 3
+  isOnWheel: 1
