@@ -7,16 +7,16 @@ public class EmoteWheelManager : MonoBehaviour
     [SerializeField] private KeyCode input;
     [SerializeField] private EmoteWheel wheel;
 	[SerializeField] private float radius;
+	[SerializeField] private int emoteCount;
 	[SerializeField] private List<EmoteInfo> emotes;
 
     private bool isWheelActive;
-	private int emoteCount;
 
 	private void Awake()
 	{
-		emoteCount = emotes.Count;
 		wheel.gameObject.SetActive(isWheelActive);
-		wheel.SetEmoteOnWheel(emoteCount, radius, emotes);
+		wheel.SetEmplacementsOnWheel(emoteCount, radius);
+		wheel.SetEmoteOnWheel(emotes);
 		wheel.OnEmoteSelected += Wheel_OnEmoteSelected;
 	}
 
