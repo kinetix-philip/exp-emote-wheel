@@ -21,6 +21,8 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	public event WheelMemberEventHandler OnEmoteSelected;
 	private Action DoAction;
 
+	private Vector3 startPos;
+
 	private EmoteInfo emoteInfo;
 
 	public int IndexOnWheel => indexOnWheel;
@@ -56,11 +58,13 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
+		if (!isOnWheel) return;
 		hover.gameObject.SetActive(true);
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
+		if (!isOnWheel) return;
 		hover.gameObject.SetActive(false);
 	}
 
@@ -76,6 +80,8 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	public void SetModeMove()
 	{
+		startPos = transform.localPosition;
+		elapsedTime = 0;
 		DoAction = DoActionMove;
 	}
 
@@ -88,9 +94,12 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	{
 		elapsedTime += Time.deltaTime * moveSpeed;
 
+		transform.localPosition = Vector3.Lerp(startPos, Vector3.zero, elapsedTime / moveDuration);
+
 		if(elapsedTime >= moveDuration)
 		{
 			elapsedTime = 0;
+			transform.localPosition = Vector3.zero;
 			Debug.Log("finish moving");
 			SetModeWait();
 		}

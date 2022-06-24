@@ -8,7 +8,7 @@ public class EmoteWheel : MonoBehaviour
 {
     [SerializeField] private WheelMember emotePrefab;
     [SerializeField] private WheelEmplacement emplacementPrefab;
-    [SerializeField] private Transform waitingTransform;
+    [SerializeField] private WaitingEmplacement waitingPrefab;
     [SerializeField] private Transform emoteContainer;
 
 	public event EmoteWheelEventHandler OnEmoteSelected;
@@ -20,6 +20,8 @@ public class EmoteWheel : MonoBehaviour
 	private Dictionary<int, WheelEmplacement> emplacements = new Dictionary<int, WheelEmplacement>();
 	private List<WheelMember> waitingList = new List<WheelMember>();
 	private List<WheelMember> onWheelList = new List<WheelMember>();
+
+	private WaitingEmplacement waitingZone;
 
 
 	public void Init(int indexIn, int indexOut)
@@ -37,7 +39,7 @@ public class EmoteWheel : MonoBehaviour
 		{
 			if (!item.IsOnWheel)
 			{
-				GenerateWheelMember(item, waitingTransform, waitingList);
+				GenerateWheelMember(item, waitingZone.transform, waitingZone.MembersInWaiting);
 				continue;
 			}
 
@@ -47,6 +49,8 @@ public class EmoteWheel : MonoBehaviour
 				if(item.IndexOnWheel == currentEmplacement.EmoteIndex) GenerateWheelMember(item, currentEmplacement.transform, onWheelList);
 			}
 		}
+
+		waitingZone.SetEmplacements();
 		
 	}
 
@@ -62,18 +66,22 @@ public class EmoteWheel : MonoBehaviour
 	{
 		Vector3 pos;
 		WheelEmplacement currentEmplacement;
-		angle = Mathf.Deg2Rad * 360 / emoteCount;
+		angle = Mathf.Deg2Rad * 360 / (emoteCount + 1);
 		int count = 0;
 		for (int i = emoteCount; i > 0; i--)
 		{
 			count++;
-			pos = new Vector3(Mathf.Cos(angle * i) * radius, Mathf.Sin(angle * i) * radius);
+			pos = new Vector3(Mathf.Cos(-angle * i) * radius, Mathf.Sin(-angle * i) * radius);
 			currentEmplacement = Instantiate(emplacementPrefab, emoteContainer);
 			currentEmplacement.transform.localPosition = pos;
 			currentEmplacement.EmoteIndex = count;
 			emplacements.Add(count, currentEmplacement);
 		}
 
+		waitingZone = Instantiate(waitingPrefab, emoteContainer);
+		pos = new Vector3(Mathf.Cos(-angle * (emoteCount + 1)) * radius, Mathf.Sin(-angle * (emoteCount + 1)) * radius);
+		waitingZone.transform.localPosition = pos;
+		
 		maxIndex = count;
 	}
 
@@ -107,7 +115,7 @@ public class EmoteWheel : MonoBehaviour
 				}
 				else
 				{
-					MoveEmote(isUp, out wheelMemberToRemove, out wheelMemberToAdd, item, waitingList.Count-1);
+					MoveEmote(isUp, out wheelMemberToRemove, out wheelMemberToAdd, item, waitingZone.MembersInWaiting.Count-1);
 				}
 				
 			}
@@ -115,6 +123,7 @@ public class EmoteWheel : MonoBehaviour
 		}
 		onWheelList.Remove(wheelMemberToRemove);
 		onWheelList.Add(wheelMemberToAdd);
+
 	}
 
 	private void MoveEmote(bool isUp, out WheelMember wheelMemberToRemove, out WheelMember wheelMemberToAdd, WheelMember item, int indexFromWaitingList)
@@ -125,23 +134,24 @@ public class EmoteWheel : MonoBehaviour
 		
 		wheelMemberToRemove = item;
 		wheelMemberToRemove.ChangeIndex(0, false);
-		wheelMemberToRemove.transform.parent = waitingTransform;
-		wheelMemberToRemove.transform.localPosition = Vector3.zero;
-		wheelMemberToRemove.SetModeMove();
+		wheelMemberToRemove.transform.parent = waitingZone.transform;
 		
-		wheelMemberToAdd = waitingList[indexFromWaitingList];
+		wheelMemberToAdd = waitingZone.MembersInWaiting[indexFromWaitingList];
 		wheelMemberToAdd.ChangeIndex(isUp ? indexIn : indexOut);
 
 		foundEmplacement = emplacements.TryGetValue(isUp ? indexIn : indexOut, out newEmplacements);
 		if (foundEmplacement)
 		{
 			wheelMemberToAdd.transform.parent = newEmplacements.transform;
-			wheelMemberToAdd.transform.localPosition = Vector3.zero;
 			wheelMemberToAdd.SetModeMove();
 		}
 
-		waitingList.RemoveAt(indexFromWaitingList);
-		waitingList.Add(wheelMemberToRemove);
+		
+		waitingZone.MembersInWaiting.RemoveAt(indexFromWaitingList);
+		waitingZone.MembersInWaiting.Insert(isUp ? waitingZone.MembersInWaiting.Count : 0, wheelMemberToRemove);
+
+		waitingZone.SetEmplacements();
+
 	}
 
 	private void MoveEmote(WheelMember item, bool isUp)
@@ -149,8 +159,8 @@ public class EmoteWheel : MonoBehaviour
 
 		WheelEmplacement newEmplacements;
 		bool foundEmplacement;
-		int factor = (isUp ? -1 : 1);
-		int valueToTest = isUp ? 0 : maxIndex + 1;
+		int factor = (isUp ? 1 : -1);
+		int valueToTest = isUp ? maxIndex + 1 : 0;
 		int newIndex = item.IndexOnWheel + factor;
 		newIndex = newIndex == valueToTest ? (isUp ? maxIndex : 1) : newIndex;
 
@@ -160,7 +170,6 @@ public class EmoteWheel : MonoBehaviour
 		if (foundEmplacement)
 		{
 			item.transform.parent = newEmplacements.transform;
-			item.transform.localPosition = Vector3.zero;
 			item.SetModeMove();
 		}
 	}
