@@ -81,6 +81,7 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	public void SetModeMove()
 	{
 		startPos = transform.localPosition;
+
 		elapsedTime = 0;
 		DoAction = DoActionMove;
 	}
