@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emotePrefab: {fileID: 9059619221440801329, guid: a960caa548ad5bc4e8999110d0988c19, type: 3}
   emplacementPrefab: {fileID: 1286221332, guid: f06045399441b054da205f6fb2e7fd33, type: 3}
+  waitingPrefab: {fileID: -560423112748551054, guid: 2225854bbf1378d4f856bfb7cd4f7b06, type: 3}
   emoteContainer: {fileID: 1100995240}
 --- !u!1 &487458714
 GameObject:
@@ -519,12 +520,16 @@ MonoBehaviour:
   input: 101
   wheel: {fileID: 434231575}
   radius: 200
-  emoteCount: 4
+  emoteOnWheelCount: 4
+  wheelIndexIn: 1
+  wheelIndexOut: 4
   emotes:
   - {fileID: 11400000, guid: b059506da50b56f4ab25f2b388530e9d, type: 2}
   - {fileID: 11400000, guid: 95a4c661935ae0a449a22782ef19b961, type: 2}
   - {fileID: 11400000, guid: 5b781e950ae71e24795f457cb258b155, type: 2}
   - {fileID: 11400000, guid: b7548fc62efffb641875b46dc583f0ed, type: 2}
+  - {fileID: 11400000, guid: 358c6d2dce0268740b0d5cdd3c27bbeb, type: 2}
+  - {fileID: 11400000, guid: 279525591c9947f4ea9d264a5d0da91f, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

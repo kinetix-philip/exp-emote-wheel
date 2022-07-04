@@ -11,10 +11,23 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private Text nameText;
     [SerializeField] private Image hover;
     [SerializeField] private Button button;
+    [SerializeField] private float moveDuration;
+    [SerializeField] private float moveSpeed;
+
+	private int indexOnWheel;
+	private bool isOnWheel;
+	private float elapsedTime;
 
 	public event WheelMemberEventHandler OnEmoteSelected;
+	private Action DoAction;
+
+	private Vector3 startPos;
 
 	private EmoteInfo emoteInfo;
+
+	public int IndexOnWheel => indexOnWheel;
+
+	public bool IsOnWheel => isOnWheel;
 
 	private void Awake()
 	{
@@ -28,19 +41,68 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	}
 
+	public void ChangeIndex(int newIndex, bool isOnWheel = true)
+	{
+		indexOnWheel = newIndex;
+		this.isOnWheel = isOnWheel;
+	}
+
 	public void Init(EmoteInfo info)
 	{
 		emoteInfo = info;
 		nameText.text = info.EmoteName;
+		isOnWheel = info.IsOnWheel;
+		indexOnWheel = info.IndexOnWheel;
+		SetModeWait();
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
+		if (!isOnWheel) return;
 		hover.gameObject.SetActive(true);
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
+		if (!isOnWheel) return;
 		hover.gameObject.SetActive(false);
+	}
+
+	private void Update()
+	{
+		DoAction();
+	}
+
+	private void SetModeWait()
+	{
+		DoAction = DoActionWait;
+	}
+
+	public void SetModeMove()
+	{
+		startPos = transform.localPosition;
+
+		elapsedTime = 0;
+		DoAction = DoActionMove;
+	}
+
+	private void DoActionWait()
+	{
+
+	}
+
+	private void DoActionMove()
+	{
+		elapsedTime += Time.deltaTime * moveSpeed;
+
+		transform.localPosition = Vector3.Lerp(startPos, Vector3.zero, elapsedTime / moveDuration);
+
+		if(elapsedTime >= moveDuration)
+		{
+			elapsedTime = 0;
+			transform.localPosition = Vector3.zero;
+			Debug.Log("finish moving");
+			SetModeWait();
+		}
 	}
 }

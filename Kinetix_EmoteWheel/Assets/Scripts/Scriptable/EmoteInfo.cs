@@ -8,8 +8,9 @@ public class EmoteInfo : ScriptableObject
 {
     [SerializeField] private string emoteName;
     [SerializeField] private int indexOnWheel;
+    [SerializeField] private bool isOnWheel;
 
 	public string EmoteName => emoteName;
 	public int IndexOnWheel { get => indexOnWheel; set => indexOnWheel = value; }
-	//[SerializeField] private Image EmoteLogo;
+    public bool IsOnWheel { get => isOnWheel; set => isOnWheel = value; }
 }

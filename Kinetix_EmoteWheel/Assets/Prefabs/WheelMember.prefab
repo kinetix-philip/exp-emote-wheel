@@ -325,6 +325,8 @@ MonoBehaviour:
   nameText: {fileID: 3669930973166389072}
   hover: {fileID: 2758092366524133888}
   button: {fileID: 4077325686499901992}
+  moveDuration: 1.5
+  moveSpeed: 3
 --- !u!1 &8977927567097995240
 GameObject:
   m_ObjectHideFlags: 0

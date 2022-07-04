@@ -7,15 +7,19 @@ public class EmoteWheelManager : MonoBehaviour
     [SerializeField] private KeyCode input;
     [SerializeField] private EmoteWheel wheel;
 	[SerializeField] private float radius;
-	[SerializeField] private int emoteCount;
+	[SerializeField] private int emoteOnWheelCount;
+	[SerializeField] private int wheelIndexIn;
+	[SerializeField] private int wheelIndexOut;
 	[SerializeField] private List<EmoteInfo> emotes;
 
     private bool isWheelActive;
+	private float currentScrollValue;
 
 	private void Awake()
 	{
+		wheel.Init(wheelIndexIn, wheelIndexOut);
 		wheel.gameObject.SetActive(isWheelActive);
-		wheel.SetEmplacementsOnWheel(emoteCount, radius);
+		wheel.SetEmplacementsOnWheel(emoteOnWheelCount, radius);
 		wheel.SetEmoteOnWheel(emotes);
 		wheel.OnEmoteSelected += Wheel_OnEmoteSelected;
 	}
@@ -44,5 +48,14 @@ public class EmoteWheelManager : MonoBehaviour
 		{
 			isWheelActive = false;
 		}
+
+		currentScrollValue = Input.GetAxis("Mouse ScrollWheel");
+
+		if (isWheelActive && currentScrollValue != 0)
+		{
+			wheel.MoveAllEmotes(currentScrollValue > 0);
+			Debug.Log(currentScrollValue > 0);
+		}
+
 	}
 }
