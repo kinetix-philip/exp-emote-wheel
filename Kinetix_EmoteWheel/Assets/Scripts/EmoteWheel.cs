@@ -50,7 +50,7 @@ public class EmoteWheel : MonoBehaviour
 			}
 		}
 
-		waitingZone.SetEmplacements();
+		if(emplacementsCount < emotes.Count)waitingZone.SetEmplacements();
 		
 	}
 
@@ -65,21 +65,24 @@ public class EmoteWheel : MonoBehaviour
 	public void SetEmplacementsOnWheel(int emoteCount, float radius)
 	{
 		Vector3 pos;
+		Quaternion rot;
 		WheelEmplacement currentEmplacement;
 		angle = Mathf.Deg2Rad * 360 / (emoteCount + 1);
 		int count = 0;
-		for (int i = emoteCount; i > 0; i--)
+		for (int i = 0; i < emoteCount; i++)
 		{
 			count++;
-			pos = new Vector3(Mathf.Cos(-angle * i) * radius, Mathf.Sin(-angle * i) * radius);
+			pos = new Vector3(Mathf.Cos(angle * i) * radius, Mathf.Sin(angle * i) * radius);
+			rot = Quaternion.AngleAxis((angle/2) * i * Mathf.Rad2Deg, emoteContainer.forward);
 			currentEmplacement = Instantiate(emplacementPrefab, emoteContainer);
 			currentEmplacement.transform.localPosition = pos;
+			currentEmplacement.transform.rotation = rot;
 			currentEmplacement.EmoteIndex = count;
 			emplacements.Add(count, currentEmplacement);
 		}
 
 		waitingZone = Instantiate(waitingPrefab, emoteContainer);
-		pos = new Vector3(Mathf.Cos(-angle * (emoteCount + 1)) * radius, Mathf.Sin(-angle * (emoteCount + 1)) * radius);
+		pos = new Vector3(Mathf.Cos(angle * emoteCount) * radius, Mathf.Sin(angle * emoteCount) * radius);
 		waitingZone.transform.localPosition = pos;
 		
 		maxIndex = count;

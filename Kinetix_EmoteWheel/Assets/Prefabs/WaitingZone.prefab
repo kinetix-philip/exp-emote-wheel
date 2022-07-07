@@ -88,6 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstElementToAppear: {fileID: 7524726491175059677}
   lastElementToAppear: {fileID: 7524726491519130441}
+  waitingZone: {fileID: 2092683377159213901}
 --- !u!1001 &3164264630276007146
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1607c94075fe19b499c101c27404d0d3, type: 3}
   m_Name: MDR
   m_EditorClassIdentifier: 
-  emoteName: MDR
+  emoteRarity: 4
+  emoteElement: 4
   indexOnWheel: 2
   isOnWheel: 1
+  hasVFX: 1

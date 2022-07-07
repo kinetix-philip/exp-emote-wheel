@@ -26,7 +26,7 @@ public class EmoteWheelManager : MonoBehaviour
 
 	private void Wheel_OnEmoteSelected(EmoteInfo info)
 	{
-		Debug.Log("Play emote: " + info.EmoteName);
+		Debug.Log("Play emote: " + info.EmoteRarity);
 		wheel.gameObject.SetActive(false);
 		isWheelActive = false;
 	}
@@ -43,19 +43,16 @@ public class EmoteWheelManager : MonoBehaviour
 		if (Input.GetKeyDown(input))
 		{
 			isWheelActive = true;
+			currentScrollValue = 0;
 		}
 		else if (Input.GetKeyUp(input))
 		{
 			isWheelActive = false;
 		}
 
-		currentScrollValue = Input.GetAxis("Mouse ScrollWheel");
+		if(emotes.Count > emoteOnWheelCount) currentScrollValue = Input.GetAxis("Mouse ScrollWheel");
 
-		if (isWheelActive && currentScrollValue != 0)
-		{
-			wheel.MoveAllEmotes(currentScrollValue > 0);
-			Debug.Log(currentScrollValue > 0);
-		}
+		if (isWheelActive && currentScrollValue != 0) wheel.MoveAllEmotes(currentScrollValue > 0);
 
 	}
 }

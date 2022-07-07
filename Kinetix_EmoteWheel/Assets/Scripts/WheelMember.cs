@@ -8,14 +8,18 @@ using UnityEngine.UI;
 public delegate void WheelMemberEventHandler(WheelMember sender, EmoteInfo info); 
 public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Text nameText;
+    [SerializeField] private Text rarityText;
     [SerializeField] private Image hover;
+    [SerializeField] private Image vfxIcon;
+    [SerializeField] private Image elementIcon;
     [SerializeField] private Button button;
     [SerializeField] private float moveDuration;
     [SerializeField] private float moveSpeed;
+	[SerializeField] private List<ElementIconStruct> elementIcons;
 
 	private int indexOnWheel;
 	private bool isOnWheel;
+	private bool hasVFX;
 	private float elapsedTime;
 
 	public event WheelMemberEventHandler OnEmoteSelected;
@@ -36,6 +40,8 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
 	private void Button_OnClick()
 	{
+		if (!isOnWheel) return;
+
 		OnEmoteSelected?.Invoke(this, emoteInfo);
 		hover.gameObject.SetActive(false);
 
@@ -50,22 +56,43 @@ public class WheelMember : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	public void Init(EmoteInfo info)
 	{
 		emoteInfo = info;
-		nameText.text = info.EmoteName;
+		rarityText.text = info.EmoteRarity.ToString();
 		isOnWheel = info.IsOnWheel;
 		indexOnWheel = info.IndexOnWheel;
+		hasVFX = info.HasVFX;
+		SelectElementIcon();
 		SetModeWait();
+	}
+
+	private void SelectElementIcon()
+	{
+		foreach (ElementIconStruct item in elementIcons)
+		{
+			if(item.element == emoteInfo.EmoteElement)
+			{
+				elementIcon.sprite = item.elementIcon;
+				break;
+			}
+		}
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		if (!isOnWheel) return;
 		hover.gameObject.SetActive(true);
+		vfxIcon.gameObject.SetActive(hasVFX && true);
+		elementIcon.gameObject.SetActive(true);
+		rarityText.gameObject.SetActive(true);
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		if (!isOnWheel) return;
 		hover.gameObject.SetActive(false);
+		elementIcon.gameObject.SetActive(false);
+		rarityText.gameObject.SetActive(false);
+		if (hasVFX) vfxIcon.gameObject.SetActive(false);
+		
 	}
 
 	private void Update()
