@@ -8,8 +8,9 @@ public class EmoteWheel : MonoBehaviour
 {
     [SerializeField] private WheelMember emotePrefab;
     [SerializeField] private WheelEmplacement emplacementPrefab;
-    [SerializeField] private WaitingEmplacement waitingPrefab;
+    [SerializeField] private WaitingEmplacement waitingZone;
     [SerializeField] private Transform emoteContainer;
+	[SerializeField] private Transform indicator;
 
 	public event EmoteWheelEventHandler OnEmoteSelected;
 
@@ -18,10 +19,7 @@ public class EmoteWheel : MonoBehaviour
 	private int indexOut;
 	private int maxIndex;
 	private Dictionary<int, WheelEmplacement> emplacements = new Dictionary<int, WheelEmplacement>();
-	private List<WheelMember> waitingList = new List<WheelMember>();
 	private List<WheelMember> onWheelList = new List<WheelMember>();
-
-	private WaitingEmplacement waitingZone;
 
 
 	public void Init(int indexIn, int indexOut)
@@ -50,7 +48,7 @@ public class EmoteWheel : MonoBehaviour
 			}
 		}
 
-		waitingZone.SetEmplacements();
+		if(emplacementsCount < emotes.Count)waitingZone.SetEmplacements();
 		
 	}
 
@@ -65,22 +63,26 @@ public class EmoteWheel : MonoBehaviour
 	public void SetEmplacementsOnWheel(int emoteCount, float radius)
 	{
 		Vector3 pos;
+		Quaternion rot;
 		WheelEmplacement currentEmplacement;
 		angle = Mathf.Deg2Rad * 360 / (emoteCount + 1);
 		int count = 0;
-		for (int i = emoteCount; i > 0; i--)
+		for (int i = 0; i < emoteCount; i++)
 		{
 			count++;
-			pos = new Vector3(Mathf.Cos(-angle * i) * radius, Mathf.Sin(-angle * i) * radius);
+			pos = new Vector3(Mathf.Cos(angle * i) * radius, Mathf.Sin(angle * i) * radius);
 			currentEmplacement = Instantiate(emplacementPrefab, emoteContainer);
 			currentEmplacement.transform.localPosition = pos;
+			rot = Quaternion.AngleAxis(Vector3.SignedAngle(emoteContainer.up, pos, emoteContainer.forward), emoteContainer.forward);
+			currentEmplacement.transform.rotation = rot;
 			currentEmplacement.EmoteIndex = count;
 			emplacements.Add(count, currentEmplacement);
 		}
 
-		waitingZone = Instantiate(waitingPrefab, emoteContainer);
-		pos = new Vector3(Mathf.Cos(-angle * (emoteCount + 1)) * radius, Mathf.Sin(-angle * (emoteCount + 1)) * radius);
-		waitingZone.transform.localPosition = pos;
+		/*waitingZone = Instantiate(waitingPrefab, emoteContainer);
+		pos = new Vector3(Mathf.Cos(angle * emoteCount) * radius, Mathf.Sin(angle * emoteCount) * radius);
+		Debug.Log(pos);
+		waitingZone.transform.localPosition = pos;*/
 		
 		maxIndex = count;
 	}
@@ -173,4 +175,13 @@ public class EmoteWheel : MonoBehaviour
 			item.SetModeMove();
 		}
 	}
+
+	private void Update()
+	{
+		Vector2 centerToMouse = Input.mousePosition - indicator.position;
+		indicator.rotation = Quaternion.AngleAxis(Vector3.SignedAngle(transform.up, centerToMouse, transform.forward), transform.forward);
+	}
+
+	
+
 }

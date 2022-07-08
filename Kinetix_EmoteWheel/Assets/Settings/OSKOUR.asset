@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1607c94075fe19b499c101c27404d0d3, type: 3}
   m_Name: OSKOUR
   m_EditorClassIdentifier: 
-  emoteName: OSKOUR
+  emoteRarity: 4
+  emoteElement: 5
   indexOnWheel: 3
   isOnWheel: 1
+  hasVFX: 0
+  hoveredSilhouette: {fileID: 4228124461195758371, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  unhoveredSilhouette: {fileID: 5459774488510143314, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}

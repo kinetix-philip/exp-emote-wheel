@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1607c94075fe19b499c101c27404d0d3, type: 3}
   m_Name: Coucou
   m_EditorClassIdentifier: 
-  emoteName: Coucou
+  emoteRarity: 2
+  emoteElement: 3
   indexOnWheel: 4
   isOnWheel: 1
+  hasVFX: 0
+  hoveredSilhouette: {fileID: -8774619047979207520, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  unhoveredSilhouette: {fileID: 9065589269756433578, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
