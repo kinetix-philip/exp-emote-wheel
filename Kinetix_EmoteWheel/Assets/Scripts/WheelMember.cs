@@ -29,6 +29,7 @@ public class WheelMember : MonoBehaviour
 	private Vector3 startPos;
 	private Quaternion startRot;
 	private EmoteInfo emoteInfo;
+	private bool isHovered;
 
 	public int IndexOnWheel => indexOnWheel;
 
@@ -80,13 +81,14 @@ public class WheelMember : MonoBehaviour
 
 	public void OnHovered()
 	{
-		Debug.Log("Hello");
 		if (!isOnWheel) return;
 		hover.gameObject.SetActive(true);
 		vfxIcon.gameObject.SetActive(hasVFX && true);
 		elementIcon.gameObject.SetActive(true);
 		rarityText.gameObject.SetActive(true);
 		emoteLogo.sprite = emoteInfo.HoveredSilhouette;
+
+		isHovered = true;
 	}
 
 	public void OnUnhovered()
@@ -97,11 +99,16 @@ public class WheelMember : MonoBehaviour
 		rarityText.gameObject.SetActive(false);
 		if (hasVFX) vfxIcon.gameObject.SetActive(false);
 		emoteLogo.sprite = emoteInfo.UnhoveredSilhouette;
+
+		isHovered = false;
 	}
 
 	private void Update()
 	{
 		DoAction();
+
+		if (Input.GetMouseButtonDown(0) && isHovered)
+			OnEmoteSelected?.Invoke(this, emoteInfo);
 	}
 
 	private void SetModeWait()
