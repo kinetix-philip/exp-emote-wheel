@@ -54,5 +54,6 @@ public class EmoteWheelManager : MonoBehaviour
 
 		if (isWheelActive && currentScrollValue != 0) wheel.MoveAllEmotes(currentScrollValue > 0);
 
+		
 	}
 }

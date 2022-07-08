@@ -17,3 +17,5 @@ MonoBehaviour:
   indexOnWheel: 1
   isOnWheel: 1
   hasVFX: 0
+  hoveredSilhouette: {fileID: 6436006704361838657, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  unhoveredSilhouette: {fileID: -3379901748147225787, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}

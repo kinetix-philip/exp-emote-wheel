@@ -8,8 +8,9 @@ public class EmoteWheel : MonoBehaviour
 {
     [SerializeField] private WheelMember emotePrefab;
     [SerializeField] private WheelEmplacement emplacementPrefab;
-    [SerializeField] private WaitingEmplacement waitingPrefab;
+    [SerializeField] private WaitingEmplacement waitingZone;
     [SerializeField] private Transform emoteContainer;
+	[SerializeField] private Transform indicator;
 
 	public event EmoteWheelEventHandler OnEmoteSelected;
 
@@ -18,10 +19,7 @@ public class EmoteWheel : MonoBehaviour
 	private int indexOut;
 	private int maxIndex;
 	private Dictionary<int, WheelEmplacement> emplacements = new Dictionary<int, WheelEmplacement>();
-	private List<WheelMember> waitingList = new List<WheelMember>();
 	private List<WheelMember> onWheelList = new List<WheelMember>();
-
-	private WaitingEmplacement waitingZone;
 
 
 	public void Init(int indexIn, int indexOut)
@@ -73,17 +71,18 @@ public class EmoteWheel : MonoBehaviour
 		{
 			count++;
 			pos = new Vector3(Mathf.Cos(angle * i) * radius, Mathf.Sin(angle * i) * radius);
-			rot = Quaternion.AngleAxis((angle/2) * i * Mathf.Rad2Deg, emoteContainer.forward);
 			currentEmplacement = Instantiate(emplacementPrefab, emoteContainer);
 			currentEmplacement.transform.localPosition = pos;
+			rot = Quaternion.AngleAxis(Vector3.SignedAngle(emoteContainer.up, pos, emoteContainer.forward), emoteContainer.forward);
 			currentEmplacement.transform.rotation = rot;
 			currentEmplacement.EmoteIndex = count;
 			emplacements.Add(count, currentEmplacement);
 		}
 
-		waitingZone = Instantiate(waitingPrefab, emoteContainer);
+		/*waitingZone = Instantiate(waitingPrefab, emoteContainer);
 		pos = new Vector3(Mathf.Cos(angle * emoteCount) * radius, Mathf.Sin(angle * emoteCount) * radius);
-		waitingZone.transform.localPosition = pos;
+		Debug.Log(pos);
+		waitingZone.transform.localPosition = pos;*/
 		
 		maxIndex = count;
 	}
@@ -176,4 +175,13 @@ public class EmoteWheel : MonoBehaviour
 			item.SetModeMove();
 		}
 	}
+
+	private void Update()
+	{
+		Vector2 centerToMouse = Input.mousePosition - indicator.position;
+		indicator.rotation = Quaternion.AngleAxis(Vector3.SignedAngle(transform.up, centerToMouse, transform.forward), transform.forward);
+	}
+
+	
+
 }

@@ -410,7 +410,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 36442125132627828, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -430,6 +430,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8864788194088988670}
   - component: {fileID: 9059619221440801329}
+  - component: {fileID: 3148156275084202203}
+  - component: {fileID: 4549772839269841328}
   m_Layer: 5
   m_Name: WheelMember
   m_TagString: Untagged
@@ -478,6 +480,7 @@ MonoBehaviour:
   hover: {fileID: 2758092366524133888}
   vfxIcon: {fileID: 506571766}
   elementIcon: {fileID: 1880869912}
+  emoteLogo: {fileID: 4806515647652108011}
   button: {fileID: 4077325686499901992}
   moveDuration: 1.5
   moveSpeed: 3
@@ -494,6 +497,53 @@ MonoBehaviour:
     elementIcon: {fileID: 2265571703047055746, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
   - element: 5
     elementIcon: {fileID: 411327279675129533, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+--- !u!61 &3148156275084202203
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8791300227844869240}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2.4552307, y: -96.94246}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 12.846863, y: 25.164886}
+  m_EdgeRadius: 0
+--- !u!50 &4549772839269841328
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8791300227844869240}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8977927567097995240
 GameObject:
   m_ObjectHideFlags: 0

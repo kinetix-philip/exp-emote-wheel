@@ -11,10 +11,14 @@ public class EmoteInfo : ScriptableObject
     [SerializeField] private int indexOnWheel;
     [SerializeField] private bool isOnWheel;
     [SerializeField] private bool hasVFX;
+    [SerializeField] private Sprite hoveredSilhouette;
+    [SerializeField] private Sprite unhoveredSilhouette;
 
 	public RarityEnum EmoteRarity => emoteRarity;
 	public int IndexOnWheel { get => indexOnWheel; set => indexOnWheel = value; }
     public bool IsOnWheel { get => isOnWheel; set => isOnWheel = value; }
 	public ElementEnum EmoteElement => emoteElement;
 	public bool HasVFX => hasVFX;
+	public Sprite HoveredSilhouette => hoveredSilhouette;
+	public Sprite UnhoveredSilhouette => unhoveredSilhouette;
 }
