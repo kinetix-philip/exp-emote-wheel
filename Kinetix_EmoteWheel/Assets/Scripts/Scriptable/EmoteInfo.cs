@@ -6,8 +6,21 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "EmoteWheel", fileName = "EmoteInfo", order = 0)]
 public class EmoteInfo : ScriptableObject
 {
-    [SerializeField] private string emoteName;
+    [SerializeField] private RarityEnum emoteRarity;
+    [SerializeField] private ElementEnum emoteElement;
+    [SerializeField] private int indexOnWheel;
+    [SerializeField] private bool isOnWheel;
+    [SerializeField] private bool hasVFX;
+    [SerializeField] private Sprite hoveredSilhouette;
+    [SerializeField] private Sprite unhoveredSilhouette;
+    [SerializeField] private AnimationClip emote;
 
-	public string EmoteName => emoteName;
-	//[SerializeField] private Image EmoteLogo;
+	public RarityEnum EmoteRarity => emoteRarity;
+	public int IndexOnWheel { get => indexOnWheel; set => indexOnWheel = value; }
+    public bool IsOnWheel { get => isOnWheel; set => isOnWheel = value; }
+	public ElementEnum EmoteElement => emoteElement;
+	public bool HasVFX => hasVFX;
+	public Sprite HoveredSilhouette => hoveredSilhouette;
+	public Sprite UnhoveredSilhouette => unhoveredSilhouette;
+    public AnimationClip Emote => emote;
 }

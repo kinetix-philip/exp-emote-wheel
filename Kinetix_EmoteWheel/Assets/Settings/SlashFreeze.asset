@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1607c94075fe19b499c101c27404d0d3, type: 3}
+  m_Name: SlashFreeze
+  m_EditorClassIdentifier: 
+  emoteRarity: 1
+  emoteElement: 5
+  indexOnWheel: 0
+  isOnWheel: 0
+  hasVFX: 0
+  hoveredSilhouette: {fileID: -2299147369957207946, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  unhoveredSilhouette: {fileID: 8313487067455195386, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  emote: {fileID: 1827226128182048838, guid: f136030108e7e764598192eb5a92c761, type: 3}
