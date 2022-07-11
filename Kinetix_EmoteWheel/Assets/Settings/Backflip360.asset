@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1607c94075fe19b499c101c27404d0d3, type: 3}
+  m_Name: Backflip360
+  m_EditorClassIdentifier: 
+  emoteRarity: 0
+  emoteElement: 0
+  indexOnWheel: 5
+  isOnWheel: 1
+  hasVFX: 1
+  hoveredSilhouette: {fileID: 36442125132627828, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  unhoveredSilhouette: {fileID: 8368959632400809171, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  emote: {fileID: 1827226128182048838, guid: cfa02d015cc920647ac6c9ddd002cd6a, type: 3}

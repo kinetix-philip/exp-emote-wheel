@@ -142,7 +142,6 @@ public class WheelMember : MonoBehaviour
 			elapsedTime = 0;
 			transform.localPosition = Vector3.zero;
 			transform.localRotation = Quaternion.identity;
-			Debug.Log("finish moving");
 			SetModeWait();
 		}
 	}

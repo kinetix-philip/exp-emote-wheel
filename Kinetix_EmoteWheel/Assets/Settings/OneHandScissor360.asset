@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1607c94075fe19b499c101c27404d0d3, type: 3}
+  m_Name: OneHandScissor360
+  m_EditorClassIdentifier: 
+  emoteRarity: 1
+  emoteElement: 1
+  indexOnWheel: 1
+  isOnWheel: 1
+  hasVFX: 0
+  hoveredSilhouette: {fileID: 6436006704361838657, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  unhoveredSilhouette: {fileID: -3379901748147225787, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
+  emote: {fileID: 1827226128182048838, guid: d7b694275f930ba4da09d58bc4287468, type: 3}

@@ -11,9 +11,13 @@ public class EmoteWheelManager : MonoBehaviour
 	[SerializeField] private int wheelIndexIn;
 	[SerializeField] private int wheelIndexOut;
 	[SerializeField] private List<EmoteInfo> emotes;
+	[SerializeField] private Animator playerController;
 
     private bool isWheelActive;
 	private float currentScrollValue;
+	private AnimatorOverrideController animatorOverride;
+
+	//private List<KeyValuePair<AnimationClip, AnimationClip>>
 
 	private void Awake()
 	{
@@ -22,13 +26,19 @@ public class EmoteWheelManager : MonoBehaviour
 		wheel.SetEmplacementsOnWheel(emoteOnWheelCount, radius);
 		wheel.SetEmoteOnWheel(emotes);
 		wheel.OnEmoteSelected += Wheel_OnEmoteSelected;
+
+		animatorOverride = new AnimatorOverrideController(playerController.runtimeAnimatorController);
+		playerController.runtimeAnimatorController = animatorOverride;
 	}
 
 	private void Wheel_OnEmoteSelected(EmoteInfo info)
 	{
-		Debug.Log("Play emote: " + info.EmoteRarity);
 		wheel.gameObject.SetActive(false);
 		isWheelActive = false;
+		
+		animatorOverride[animatorOverride.animationClips[1].name] = info.Emote;
+
+		playerController.SetTrigger("playEmote");
 	}
 
 	// Update is called once per frame
