@@ -16,7 +16,7 @@ MonoBehaviour:
   emoteElement: 5
   indexOnWheel: 0
   isOnWheel: 0
-  hasVFX: 0
+  hasVFX: 1
   hoveredSilhouette: {fileID: -2299147369957207946, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
   unhoveredSilhouette: {fileID: 8313487067455195386, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
   emote: {fileID: 1827226128182048838, guid: f136030108e7e764598192eb5a92c761, type: 3}

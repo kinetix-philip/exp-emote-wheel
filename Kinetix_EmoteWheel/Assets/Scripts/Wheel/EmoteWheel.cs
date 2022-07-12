@@ -174,14 +174,6 @@ public class EmoteWheel : MonoBehaviour
 			item.transform.parent = newEmplacements.transform;
 			item.SetModeMove();
 		}
-	}
-
-	private void Update()
-	{
-		Vector2 centerToMouse = Input.mousePosition - indicator.position;
-		indicator.rotation = Quaternion.AngleAxis(Vector3.SignedAngle(transform.up, centerToMouse, transform.forward), transform.forward);
-	}
-
-	
+	}	
 
 }

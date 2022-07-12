@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: OneHandScissor360
   m_EditorClassIdentifier: 
   emoteRarity: 1
-  emoteElement: 1
-  indexOnWheel: 1
-  isOnWheel: 1
-  hasVFX: 0
+  emoteElement: 0
+  indexOnWheel: 0
+  isOnWheel: 0
+  hasVFX: 1
   hoveredSilhouette: {fileID: 6436006704361838657, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
   unhoveredSilhouette: {fileID: -3379901748147225787, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}
   emote: {fileID: 1827226128182048838, guid: d7b694275f930ba4da09d58bc4287468, type: 3}

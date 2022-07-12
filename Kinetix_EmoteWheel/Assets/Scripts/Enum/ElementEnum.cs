@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum ElementEnum
 {
+	NONE,
 	FIRE,
 	WATER,
 	PLANT,
