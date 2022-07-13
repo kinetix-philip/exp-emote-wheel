@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 2343029035553782590}
   - component: {fileID: 2343029035553782588}
   - component: {fileID: 2343029035553782589}
+  - component: {fileID: -1070186970167629447}
   m_Layer: 5
   m_Name: BagCard
   m_TagString: Untagged
@@ -155,6 +156,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-1070186970167629447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2343029035553782591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f259de2241e1624ba064ff918c9ed91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rarityText: {fileID: 3313149620493192214}
+  vfxIcon: {fileID: 3511167144796945210}
+  elementIcon: {fileID: 3311648820365399809}
+  emoteLogo: {fileID: 3393034497995356915}
+  elementIcons:
+  - element: 1
+    elementIcon: {fileID: 8004204412489211856, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 2
+    elementIcon: {fileID: 9077188336397761412, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 3
+    elementIcon: {fileID: 3994998412321825272, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 4
+    elementIcon: {fileID: -2449706287813679885, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 5
+    elementIcon: {fileID: 2265571703047055746, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 6
+    elementIcon: {fileID: 411327279675129533, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  animDuration: {fileID: 235182789339921935}
 --- !u!1 &3489215607238340562
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,4 +569,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '{0} : {1}'
+  m_Text: 

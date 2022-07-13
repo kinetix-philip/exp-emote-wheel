@@ -8,15 +8,36 @@ public class BagManager : MonoBehaviour
     [SerializeField] private Transform emoteWheelInBag;
     [SerializeField] private BagEmplacement emoteBagEmplacement;
     [SerializeField] private BagEmplacement bagEmplacement;
+    [SerializeField] private BagCard bagCard;
 
 	private List<BagEmplacement> inventoryEmplacements = new List<BagEmplacement>();
 	private List<BagEmplacement> wheelEmplacements = new List<BagEmplacement>();
 
-	public void Init(int nEmotes, int nWheelEmplacements)
+	public void Init(int nEmotes, int nWheelEmplacements, List<EmoteInfo> emotes)
 	{
 		SetEmplacements(inventory, bagEmplacement, inventoryEmplacements, nEmotes);
 		SetEmplacements(emoteWheelInBag, emoteBagEmplacement, wheelEmplacements, nWheelEmplacements);
 		InitWheelEmplacements(nWheelEmplacements);
+		CreateBagCards(emotes);
+	}
+
+	private void CreateBagCards(List<EmoteInfo> emotes)
+	{
+		int count = emotes.Count;
+		EmoteInfo currentEmote;
+		BagEmplacement currentEmplacement;
+		BagCard currentBagCard;
+		for (int i = 0; i < count; i++)
+		{
+			currentEmote = emotes[i];
+			if (currentEmote.IsOnWheel)
+				currentEmplacement = wheelEmplacements[i];
+			else
+				currentEmplacement = inventoryEmplacements[i];
+
+			currentBagCard = Instantiate(bagCard, currentEmplacement.transform);
+			currentBagCard.Init(currentEmote);
+		}
 	}
 
 	private void SetEmplacements(Transform container, BagEmplacement prefabToUse, List<BagEmplacement> listToFill, int nEmplacements)
@@ -37,9 +58,5 @@ public class BagManager : MonoBehaviour
 		}
 	}
 
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
+	
 }

@@ -30,13 +30,15 @@ public class EmoteWheelManager : MonoBehaviour
 
 	[SerializeField] private List<EmoteInfo> emotes;
 
+	private List<EmoteInfo> selectedEmotes = new List<EmoteInfo>();
+
 	private Action DoAction;
 
 	private void Awake()
 	{
 		SetModeWait();
 		wheel.Init(wheelIndexIn, wheelIndexOut);
-		bag.Init(emotes.Count, nEmotesSelectables);
+		bag.Init(emotes.Count, nEmotesSelectables, emotes);
 
 		wheel.OnEmoteSelected += Wheel_OnEmoteSelected;
 		wheel.gameObject.SetActive(isWheelActive);
@@ -83,7 +85,7 @@ public class EmoteWheelManager : MonoBehaviour
 
 	private void DoActionWheel()
 	{
-		if(emotes.Count > emoteOnWheelCount) currentScrollValue = Input.GetAxis("Mouse ScrollWheel");
+		if(selectedEmotes.Count > emoteOnWheelCount) currentScrollValue = Input.GetAxis("Mouse ScrollWheel");
 
 		if (isWheelActive && currentScrollValue != 0) wheel.MoveAllEmotes(currentScrollValue > 0);
 

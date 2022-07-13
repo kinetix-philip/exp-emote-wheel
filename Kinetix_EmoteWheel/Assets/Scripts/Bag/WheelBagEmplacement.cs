@@ -7,17 +7,13 @@ public class WheelBagEmplacement : MonoBehaviour
 {
     [SerializeField] private Text indicator;
 
-    private string indicatorFormat;
+    private const string INDICATOR_FORMAT = "{0} / {1}";
 	private int rank;
 
-	private void Awake()
-	{
-		indicatorFormat = indicator.text;
-	}
 
 	public void Init(int rank, int maxRank)
 	{
-		indicator.text = string.Format(indicatorFormat, rank, maxRank);
+		indicator.text = string.Format(INDICATOR_FORMAT, rank, maxRank);
 		this.rank = rank;
 	}
 }
