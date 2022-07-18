@@ -9,8 +9,10 @@ public class EmoteWheelManager : MonoBehaviour
 	[SerializeField] private Animator playerController;
 
 	[Header("Inputs")]
-	[SerializeField] private KeyCode wheelInput;
-	[SerializeField] private KeyCode bagInput;
+	[SerializeField] private ShortCutsManager shortCuts;
+	[SerializeField] private InputStruct wheelInput;
+	[SerializeField] private InputStruct bagInput;
+	[SerializeField] private InputStruct shopInput;
 
 	[Header("Wheel Parameters")]
 	[SerializeField] private EmoteWheel wheel;
@@ -20,6 +22,7 @@ public class EmoteWheelManager : MonoBehaviour
 	[SerializeField] private int wheelIndexOut;
 	[SerializeField] private Transform indicator;
 	private bool isWheelActive;
+	private bool canPlayEmote;
 	private float currentScrollValue;
 	private AnimatorOverrideController animatorOverride;
 
@@ -40,6 +43,7 @@ public class EmoteWheelManager : MonoBehaviour
 		SetModeWait();
 		wheel.Init(wheelIndexIn, wheelIndexOut);
 		bag.Init(emotes.Count, nEmotesSelectables, emotes, wheelIndexIn, wheelIndexOut);
+		ShortCutsSetup();
 
 		wheel.gameObject.SetActive(isWheelActive);
 		wheel.SetEmplacementsOnWheel(emoteOnWheelCount, radius);
@@ -54,8 +58,45 @@ public class EmoteWheelManager : MonoBehaviour
 
 	}
 
+	private void ShortCutsSetup()
+	{
+		shortCuts.Init(bagInput, shopInput, wheelInput);
+		shortCuts.OnBar += ShortCuts_OnBar;
+		shortCuts.OffBar += ShortCuts_OffBar;
+		shortCuts.OnBag += ShortCuts_OnBag;
+		shortCuts.OnWheel += ShortCuts_OnWheel;
+	}
+
+	private void ShortCuts_OffBar()
+	{
+		canPlayEmote = true;
+	}
+
+	private void ShortCuts_OnBar()
+	{
+		canPlayEmote = false;
+	}
+
+	private void ShortCuts_OnWheel()
+	{
+		if (!isWheelActive)
+			OpenWheel();
+		else
+			CloseWheel();
+	}
+
+	private void ShortCuts_OnBag()
+	{
+		if (!isBagOpen)
+			OpenBag();
+		else
+			CloseBag();
+	}
+
 	private void Wheel_OnEmoteSelected(EmoteInfo info)
 	{
+		if (!canPlayEmote) return;
+
 		wheel.gameObject.SetActive(false);
 		isWheelActive = false;
 		
@@ -124,43 +165,55 @@ public class EmoteWheelManager : MonoBehaviour
 
 	private void CheckWheelInput()
 	{
-		if (Input.GetKeyDown(wheelInput))
-		{
-			SetModeWheel();
-			isWheelActive = true;
-			currentScrollValue = 0;
-			wheel.OnEmoteSelected += Wheel_OnEmoteSelected;
-		}
-		else if (Input.GetKeyUp(wheelInput))
-		{
-			isWheelActive = false;
-			SetModeWait();
-			wheel.OnEmoteSelected -= Wheel_OnEmoteSelected;
-		}
+		if (Input.GetKeyDown(wheelInput.input))
+			OpenWheel();
+		else if (Input.GetKeyUp(wheelInput.input))
+			CloseWheel();
 
 		wheel.gameObject.SetActive(isWheelActive);
 	}
 
+	private void OpenWheel()
+	{
+		SetModeWheel();
+		isWheelActive = true;
+		currentScrollValue = 0;
+		wheel.OnEmoteSelected += Wheel_OnEmoteSelected;
+	}
+
+	private void CloseWheel()
+	{
+		isWheelActive = false;
+		SetModeWait();
+		wheel.OnEmoteSelected -= Wheel_OnEmoteSelected;
+	}
+
 	private void CheckBagInput()
 	{
-		if(Input.GetKeyDown(bagInput) && !isBagOpen)
-		{
-			isBagOpen = true;
-			bag.gameObject.SetActive(true);
-			bag.OnSetDrag += Bag_OnSetDrag;
-			bag.OnStartDrag += Bag_OnStartDrag;
-		}
-		else if(Input.GetKeyDown(bagInput) && isBagOpen)
-		{
-			isBagOpen = false;
-			bag.gameObject.SetActive(false);
-			SetModeWait();
-			bag.OnSetDrag -= Bag_OnSetDrag;
-			bag.OnStartDrag -= Bag_OnStartDrag;
-			selectedEmotes = bag.SelectedEmotes;
+		if (Input.GetKeyDown(bagInput.input) && !isBagOpen)
+			OpenBag();
+		else if (Input.GetKeyDown(bagInput.input) && isBagOpen)
+			CloseBag();
+	}
 
-			wheel.SetEmoteOnWheel(selectedEmotes);
-		}
+	private void OpenBag()
+	{
+		isBagOpen = true;
+		bag.gameObject.SetActive(true);
+		bag.OnSetDrag += Bag_OnSetDrag;
+		bag.OnStartDrag += Bag_OnStartDrag;
+	}
+
+	private void CloseBag()
+	{
+		isBagOpen = false;
+		bag.gameObject.SetActive(false);
+		SetModeWait();
+		bag.OnSetDrag -= Bag_OnSetDrag;
+		bag.OnStartDrag -= Bag_OnStartDrag;
+		selectedEmotes = bag.SelectedEmotes;
+
+		wheel.SetEmoteOnWheel(selectedEmotes);
 	}
 
 	private void Bag_OnStartDrag()

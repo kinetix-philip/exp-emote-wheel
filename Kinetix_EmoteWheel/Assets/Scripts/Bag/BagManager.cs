@@ -32,7 +32,20 @@ public class BagManager : MonoBehaviour
 		SetEmplacements(inventory, bagEmplacement, inventoryEmplacements, nEmotes);
 		SetEmplacements(emoteWheelInBag, emoteBagEmplacement, wheelEmplacements, nWheelEmplacements);
 		InitWheelEmplacements(nWheelEmplacements, indexIn, indexOut);
+
+		SetupScrollTransform(nEmotes, inventory);
+		SetupScrollTransform(nWheelEmplacements, emoteWheelInBag);
+
 		CreateBagCards(emotes);
+	}
+
+	private void SetupScrollTransform(int nElements, Transform containerToSetup)
+	{
+		GridLayoutGroup gridLayoutGroup = containerToSetup.GetComponent<GridLayoutGroup>();
+
+		int newHeight = gridLayoutGroup.padding.top + ((int)(gridLayoutGroup.cellSize.y + gridLayoutGroup.spacing.y)) * Mathf.CeilToInt((float)nElements / gridLayoutGroup.constraintCount);
+
+		containerToSetup.GetComponent<RectTransform>().sizeDelta = new Vector2(0, newHeight);
 	}
 
 	public void StopDrag(EmoteInfo info)
