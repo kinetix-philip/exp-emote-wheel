@@ -1,17 +1,54 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class BagEmplacement : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public delegate void BagEmplacementEventHandler(BagEmplacement sender, EmoteInfo info);
+public class BagEmplacement : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerExitHandler
 {
-	public void OnPointerEnter(PointerEventData eventData)
+	protected BagCard bagCard;
+	protected bool isDragSetup;
+
+	private bool isSelected;
+
+	public event BagEmplacementEventHandler OnSetDrag;
+	public event Action OnStartDrag;
+
+	virtual public void Init(BagCard card)
 	{
-		Debug.Log("Enter");
+		bagCard = card;
 	}
 
-	public void OnPointerExit(PointerEventData eventData)
+	virtual public void EndDrag()
 	{
-		Debug.Log("Exit");
+		isDragSetup = false;
+	}
+
+	virtual public void OnPointerClick(PointerEventData eventData)
+	{
+		bagCard.SetPreview(!bagCard.IsPreviewOpen);
+	}
+
+	virtual public void OnPointerDown(PointerEventData eventData)
+	{
+		if (isSelected) return;
+		
+		OnSetDrag?.Invoke(this, bagCard.EmoteInfo);
+		isDragSetup = true;
+	}
+	
+	virtual public void OnPointerExit(PointerEventData eventData)
+	{
+		if (!isDragSetup) return;
+
+		OnStartDrag?.Invoke();
+	}
+
+	public void OnSelected(bool isSelected)
+	{
+		this.isSelected = isSelected;
+		bagCard.SelectedIcon.gameObject.SetActive(isSelected);
 	}
 }

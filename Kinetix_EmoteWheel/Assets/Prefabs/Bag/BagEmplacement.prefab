@@ -48,3 +48,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd44691eaf710947aff95ee4522d08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedIcon: {fileID: 0}

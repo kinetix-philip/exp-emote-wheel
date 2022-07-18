@@ -36,9 +36,9 @@ public class WheelMember : EmoteVisual
 		if (!isOnWheel) return;
 		hover.gameObject.SetActive(true);
 		vfxIcon.gameObject.SetActive(hasVFX && true);
-		elementIcon.gameObject.SetActive(emoteInfo.EmoteElement != ElementEnum.NONE);
+		elementIcon.gameObject.SetActive(EmoteInfo.EmoteElement != ElementEnum.NONE);
 		rarityText.gameObject.SetActive(true);
-		emoteLogo.sprite = emoteInfo.HoveredSilhouette;
+		emoteLogo.sprite = EmoteInfo.HoveredSilhouette;
 
 		isHovered = true;
 	}
@@ -50,7 +50,7 @@ public class WheelMember : EmoteVisual
 		elementIcon.gameObject.SetActive(false);
 		rarityText.gameObject.SetActive(false);
 		if (hasVFX) vfxIcon.gameObject.SetActive(false);
-		emoteLogo.sprite = emoteInfo.UnhoveredSilhouette;
+		emoteLogo.sprite = EmoteInfo.UnhoveredSilhouette;
 
 		isHovered = false;
 	}
@@ -60,7 +60,7 @@ public class WheelMember : EmoteVisual
 		DoAction();
 
 		if (Input.GetMouseButtonDown(0) && isHovered)
-			OnEmoteSelected?.Invoke(this, emoteInfo);
+			OnEmoteSelected?.Invoke(this, EmoteInfo);
 	}
 
 	private void SetModeWait()

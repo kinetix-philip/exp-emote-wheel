@@ -10,16 +10,24 @@ public class EmoteVisual : MonoBehaviour
     [SerializeField] protected Image elementIcon;
     [SerializeField] protected Image emoteLogo;
     [SerializeField] protected List<ElementIconStruct> elementIcons;
-    
-    protected EmoteInfo emoteInfo;
-    protected int indexOnWheel;
+
+	private EmoteInfo emoteInfo;
+	protected int indexOnWheel;
     protected bool isOnWheel;
     protected bool hasVFX;
 
-    public void ChangeIndex(int newIndex, bool isOnWheel = true)
+	public EmoteInfo EmoteInfo => emoteInfo;
+
+	public void ChangeIndex(int newIndex, bool isOnWheel, bool changeBaseData)
     {
         indexOnWheel = newIndex;
         this.isOnWheel = isOnWheel;
+
+        if(changeBaseData)
+		{
+            emoteInfo.IndexOnWheel = newIndex;
+            emoteInfo.IsOnWheel = isOnWheel;
+		}
     }
 
     virtual public void Init(EmoteInfo info)
@@ -37,7 +45,7 @@ public class EmoteVisual : MonoBehaviour
     {
         foreach (ElementIconStruct item in elementIcons)
         {
-            if (item.element == emoteInfo.EmoteElement)
+            if (item.element == EmoteInfo.EmoteElement)
             {
                 elementIcon.sprite = item.elementIcon;
                 break;

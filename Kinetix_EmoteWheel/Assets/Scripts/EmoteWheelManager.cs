@@ -25,6 +25,7 @@ public class EmoteWheelManager : MonoBehaviour
 
 	[Header("Bag Parameters")]
 	[SerializeField] private BagManager bag;
+	[SerializeField] private DragContainer drag;
 	[SerializeField] private int nEmotesSelectables;
 	private bool isBagOpen;
 
@@ -38,17 +39,19 @@ public class EmoteWheelManager : MonoBehaviour
 	{
 		SetModeWait();
 		wheel.Init(wheelIndexIn, wheelIndexOut);
-		bag.Init(emotes.Count, nEmotesSelectables, emotes);
+		bag.Init(emotes.Count, nEmotesSelectables, emotes, wheelIndexIn, wheelIndexOut);
 
-		wheel.OnEmoteSelected += Wheel_OnEmoteSelected;
 		wheel.gameObject.SetActive(isWheelActive);
 		wheel.SetEmplacementsOnWheel(emoteOnWheelCount, radius);
 
-
-		//wheel.SetEmoteOnWheel(emotes);
-
 		animatorOverride = new AnimatorOverrideController(playerController.runtimeAnimatorController);
 		playerController.runtimeAnimatorController = animatorOverride;
+		if (bag.SelectedEmotes.Count > 0)
+		{
+			selectedEmotes = bag.SelectedEmotes;
+			wheel.SetEmoteOnWheel(selectedEmotes);
+		}
+
 	}
 
 	private void Wheel_OnEmoteSelected(EmoteInfo info)
@@ -99,16 +102,23 @@ public class EmoteWheelManager : MonoBehaviour
 	private void SetModeBag()
 	{
 		DoAction = DoActionBag;
+		drag.gameObject.SetActive(true);
 	}
 
 	private void DoActionBag()
 	{
-		Debug.Log("coucou");
+		drag.transform.localPosition = bag.transform.InverseTransformPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
+
+		if (Input.GetMouseButtonUp(0))
+		{
+			drag.gameObject.SetActive(false);
+			bag.StopDrag(drag.Visual.EmoteInfo);
+		}
 	}
 
 	private void CheckMainInput()
 	{
-		CheckBagInput();
+		if(!isWheelActive) CheckBagInput();
 		if(!isBagOpen) CheckWheelInput();
 	}
 
@@ -119,11 +129,13 @@ public class EmoteWheelManager : MonoBehaviour
 			SetModeWheel();
 			isWheelActive = true;
 			currentScrollValue = 0;
+			wheel.OnEmoteSelected += Wheel_OnEmoteSelected;
 		}
 		else if (Input.GetKeyUp(wheelInput))
 		{
 			isWheelActive = false;
 			SetModeWait();
+			wheel.OnEmoteSelected -= Wheel_OnEmoteSelected;
 		}
 
 		wheel.gameObject.SetActive(isWheelActive);
@@ -135,13 +147,29 @@ public class EmoteWheelManager : MonoBehaviour
 		{
 			isBagOpen = true;
 			bag.gameObject.SetActive(true);
-			SetModeBag();
+			bag.OnSetDrag += Bag_OnSetDrag;
+			bag.OnStartDrag += Bag_OnStartDrag;
 		}
 		else if(Input.GetKeyDown(bagInput) && isBagOpen)
 		{
 			isBagOpen = false;
 			bag.gameObject.SetActive(false);
 			SetModeWait();
+			bag.OnSetDrag -= Bag_OnSetDrag;
+			bag.OnStartDrag -= Bag_OnStartDrag;
+			selectedEmotes = bag.SelectedEmotes;
+
+			wheel.SetEmoteOnWheel(selectedEmotes);
 		}
+	}
+
+	private void Bag_OnStartDrag()
+	{
+		SetModeBag();
+	}
+
+	private void Bag_OnSetDrag(EmoteInfo info)
+	{
+		drag.Init(info);
 	}
 }
