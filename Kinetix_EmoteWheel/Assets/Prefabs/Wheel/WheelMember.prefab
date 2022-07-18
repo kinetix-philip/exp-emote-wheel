@@ -477,26 +477,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rarityText: {fileID: 3669930973166389072}
-  hover: {fileID: 2758092366524133888}
   vfxIcon: {fileID: 506571766}
   elementIcon: {fileID: 1880869912}
   emoteLogo: {fileID: 4806515647652108011}
-  button: {fileID: 4077325686499901992}
+  elementIcons:
+  - element: 1
+    elementIcon: {fileID: 8004204412489211856, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 2
+    elementIcon: {fileID: 9077188336397761412, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 3
+    elementIcon: {fileID: 3994998412321825272, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 4
+    elementIcon: {fileID: -2449706287813679885, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 5
+    elementIcon: {fileID: 2265571703047055746, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  - element: 6
+    elementIcon: {fileID: 411327279675129533, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
+  hover: {fileID: 2758092366524133888}
   moveDuration: 1.5
   moveSpeed: 3
-  elementIcons:
-  - element: 0
-    elementIcon: {fileID: 8004204412489211856, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
-  - element: 1
-    elementIcon: {fileID: 9077188336397761412, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
-  - element: 2
-    elementIcon: {fileID: 3994998412321825272, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
-  - element: 3
-    elementIcon: {fileID: -2449706287813679885, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
-  - element: 4
-    elementIcon: {fileID: 2265571703047055746, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
-  - element: 5
-    elementIcon: {fileID: 411327279675129533, guid: 488576fc55a21eb4690c5598bf2819ff, type: 3}
 --- !u!61 &3148156275084202203
 BoxCollider2D:
   m_ObjectHideFlags: 0

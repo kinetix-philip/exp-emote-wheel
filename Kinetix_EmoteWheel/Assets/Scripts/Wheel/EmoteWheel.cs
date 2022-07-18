@@ -28,8 +28,19 @@ public class EmoteWheel : MonoBehaviour
 		this.indexOut = indexOut;
 	}
 
+	private void ClearEmotes()
+	{
+		foreach (WheelEmplacement item in emplacements.Values)
+		{
+			item.DestroyMember();
+		}
+		onWheelList.Clear();
+	}
+
 	public void SetEmoteOnWheel(List<EmoteInfo> emotes)
 	{
+		ClearEmotes();
+
 		int emplacementsCount = emplacements.Count;
 		WheelEmplacement currentEmplacement;
 
@@ -135,11 +146,11 @@ public class EmoteWheel : MonoBehaviour
 		bool foundEmplacement;
 		
 		wheelMemberToRemove = item;
-		wheelMemberToRemove.ChangeIndex(0, false);
+		wheelMemberToRemove.ChangeIndex(0, false, false);
 		wheelMemberToRemove.transform.parent = waitingZone.transform;
 		
 		wheelMemberToAdd = waitingZone.MembersInWaiting[indexFromWaitingList];
-		wheelMemberToAdd.ChangeIndex(isUp ? indexIn : indexOut);
+		wheelMemberToAdd.ChangeIndex(isUp ? indexIn : indexOut, true, false);
 
 		foundEmplacement = emplacements.TryGetValue(isUp ? indexIn : indexOut, out newEmplacements);
 		if (foundEmplacement)
@@ -166,7 +177,7 @@ public class EmoteWheel : MonoBehaviour
 		int newIndex = item.IndexOnWheel + factor;
 		newIndex = newIndex == valueToTest ? (isUp ? maxIndex : 1) : newIndex;
 
-		item.ChangeIndex(newIndex);
+		item.ChangeIndex(newIndex, true, false);
 
 		foundEmplacement = emplacements.TryGetValue(item.IndexOnWheel, out newEmplacements);
 		if (foundEmplacement)
@@ -174,14 +185,6 @@ public class EmoteWheel : MonoBehaviour
 			item.transform.parent = newEmplacements.transform;
 			item.SetModeMove();
 		}
-	}
-
-	private void Update()
-	{
-		Vector2 centerToMouse = Input.mousePosition - indicator.position;
-		indicator.rotation = Quaternion.AngleAxis(Vector3.SignedAngle(transform.up, centerToMouse, transform.forward), transform.forward);
-	}
-
-	
+	}	
 
 }

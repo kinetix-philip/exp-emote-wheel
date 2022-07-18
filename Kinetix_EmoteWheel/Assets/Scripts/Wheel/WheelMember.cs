@@ -6,21 +6,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public delegate void WheelMemberEventHandler(WheelMember sender, EmoteInfo info); 
-public class WheelMember : MonoBehaviour
+public class WheelMember : EmoteVisual
 {
-    [SerializeField] private Text rarityText;
     [SerializeField] private Image hover;
-    [SerializeField] private Image vfxIcon;
-    [SerializeField] private Image elementIcon;
-    [SerializeField] private Image emoteLogo;
-    [SerializeField] private Button button;
     [SerializeField] private float moveDuration;
     [SerializeField] private float moveSpeed;
-	[SerializeField] private List<ElementIconStruct> elementIcons;
 
-	private int indexOnWheel;
-	private bool isOnWheel;
-	private bool hasVFX;
 	private float elapsedTime;
 
 	public event WheelMemberEventHandler OnEmoteSelected;
@@ -28,55 +19,16 @@ public class WheelMember : MonoBehaviour
 
 	private Vector3 startPos;
 	private Quaternion startRot;
-	private EmoteInfo emoteInfo;
 	private bool isHovered;
 
 	public int IndexOnWheel => indexOnWheel;
 
 	public bool IsOnWheel => isOnWheel;
 
-	private void Awake()
+	override public void Init(EmoteInfo info)
 	{
-		button.onClick.AddListener(Button_OnClick);
-	}
-
-	private void Button_OnClick()
-	{
-		if (!isOnWheel) return;
-
-		OnEmoteSelected?.Invoke(this, emoteInfo);
-		hover.gameObject.SetActive(false);
-
-	}
-
-	public void ChangeIndex(int newIndex, bool isOnWheel = true)
-	{
-		indexOnWheel = newIndex;
-		this.isOnWheel = isOnWheel;
-	}
-
-	public void Init(EmoteInfo info)
-	{
-		emoteInfo = info;
-		rarityText.text = info.EmoteRarity.ToString();
-		isOnWheel = info.IsOnWheel;
-		indexOnWheel = info.IndexOnWheel;
-		hasVFX = info.HasVFX;
-		emoteLogo.sprite = info.UnhoveredSilhouette;
-		SelectElementIcon();
+		base.Init(info);
 		SetModeWait();
-	}
-
-	private void SelectElementIcon()
-	{
-		foreach (ElementIconStruct item in elementIcons)
-		{
-			if(item.element == emoteInfo.EmoteElement)
-			{
-				elementIcon.sprite = item.elementIcon;
-				break;
-			}
-		}
 	}
 
 	public void OnHovered()
@@ -84,9 +36,9 @@ public class WheelMember : MonoBehaviour
 		if (!isOnWheel) return;
 		hover.gameObject.SetActive(true);
 		vfxIcon.gameObject.SetActive(hasVFX && true);
-		elementIcon.gameObject.SetActive(true);
+		elementIcon.gameObject.SetActive(EmoteInfo.EmoteElement != ElementEnum.NONE);
 		rarityText.gameObject.SetActive(true);
-		emoteLogo.sprite = emoteInfo.HoveredSilhouette;
+		emoteLogo.sprite = EmoteInfo.HoveredSilhouette;
 
 		isHovered = true;
 	}
@@ -98,7 +50,7 @@ public class WheelMember : MonoBehaviour
 		elementIcon.gameObject.SetActive(false);
 		rarityText.gameObject.SetActive(false);
 		if (hasVFX) vfxIcon.gameObject.SetActive(false);
-		emoteLogo.sprite = emoteInfo.UnhoveredSilhouette;
+		emoteLogo.sprite = EmoteInfo.UnhoveredSilhouette;
 
 		isHovered = false;
 	}
@@ -108,7 +60,7 @@ public class WheelMember : MonoBehaviour
 		DoAction();
 
 		if (Input.GetMouseButtonDown(0) && isHovered)
-			OnEmoteSelected?.Invoke(this, emoteInfo);
+			OnEmoteSelected?.Invoke(this, EmoteInfo);
 	}
 
 	private void SetModeWait()
