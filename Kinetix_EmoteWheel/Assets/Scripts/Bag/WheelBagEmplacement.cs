@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public delegate void WheelBagEmplacementEventHandler(WheelBagEmplacement sender, EmoteInfo info);
-public class WheelBagEmplacement : BagEmplacement, IPointerEnterHandler, IPointerExitHandler
+public class WheelBagEmplacement : BagEmplacement, IPointerEnterHandler
 {
     [SerializeField] private Text indicator;
 
@@ -25,6 +25,11 @@ public class WheelBagEmplacement : BagEmplacement, IPointerEnterHandler, IPointe
 		indicator.text = string.Format(INDICATOR_FORMAT, rank, maxRank);
 		this.rank = rank;
 		isOnWheel = rank >= indexIn && rank <= indexOut;
+	}
+
+	public void SetZOrder()
+	{
+		bagCard.transform.SetSiblingIndex(1);
 	}
 
 	public void EndDrag(bool destroyBagCard)

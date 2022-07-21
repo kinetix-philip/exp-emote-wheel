@@ -21,17 +21,11 @@ public class ShortCut : MonoBehaviour
     public void Init(InputStruct data)
 	{
         txtBtn.text = data.input.ToString();
-        //icon.sprite = data.shortCutIcon;
+        icon.sprite = data.shortCutIcon;
 	}
 
 	private void Btn_OnClick()
 	{
         OnClick?.Invoke(this);
 	}
-
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
 }

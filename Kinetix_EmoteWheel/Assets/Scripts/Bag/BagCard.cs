@@ -8,14 +8,24 @@ public class BagCard : EmoteVisual
 	[SerializeField] private Text animDuration;
 	[SerializeField] private PreviewCard preview;
 	[SerializeField] private Image selectedIcon;
+	[SerializeField] private Sprite cardBgPreviewOn;
 
 	private const string ANIM_DURATION_FORMAT = "00 : {0}";
 
 	private bool isPreviewOpen = false;
 
+	private Sprite normalBg;
+	private Image cardBg;
+
 	public bool IsPreviewOpen => isPreviewOpen;
 
 	public Image SelectedIcon => selectedIcon;
+
+	private void Awake()
+	{
+		cardBg = GetComponent<Image>();
+		normalBg = cardBg.sprite;
+	}
 
 	public override void Init(EmoteInfo info)
 	{
@@ -29,5 +39,6 @@ public class BagCard : EmoteVisual
 	{
 		preview.gameObject.SetActive(isOpen);
 		isPreviewOpen = isOpen;
+		cardBg.sprite = isOpen ? cardBgPreviewOn : normalBg;
 	}
 }

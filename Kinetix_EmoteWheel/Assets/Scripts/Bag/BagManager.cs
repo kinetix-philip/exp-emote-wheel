@@ -12,6 +12,7 @@ public class BagManager : MonoBehaviour
     [SerializeField] private BagEmplacement emoteBagEmplacement;
     [SerializeField] private BagEmplacement bagEmplacement;
     [SerializeField] private BagCard bagCard;
+    [SerializeField] private BagCard wheelBagCard;
 
 	private List<BagEmplacement> inventoryEmplacements = new List<BagEmplacement>();
 	private Dictionary<EmoteInfo, BagEmplacement> inventoryEmotePairs= new Dictionary<EmoteInfo, BagEmplacement>();
@@ -62,8 +63,9 @@ public class BagManager : MonoBehaviour
 		if(selectedWheelEmplacement)
 		{
 			selectedWheelEmplacement?.EndDrag(selectedWheelEmplacement.IsFilled);
-			CreateBagCard(selectedWheelEmplacement, info);
+			CreateBagCard(selectedWheelEmplacement, info, wheelBagCard);
 			selectedWheelEmplacement.IsFilled = true;
+			selectedWheelEmplacement.SetZOrder();
 			selectedWheelEmplacement.SetData();
 		}
 
@@ -101,22 +103,23 @@ public class BagManager : MonoBehaviour
 		{
 			currentEmote = emotes[i];
 
-			CreateBagCard(inventoryEmplacements[i], currentEmote);
+			CreateBagCard(inventoryEmplacements[i], currentEmote, bagCard);
 			inventoryEmplacements[i].OnSelected(currentEmote.IsOnWheel);
 			inventoryEmotePairs.Add(currentEmote, inventoryEmplacements[i]);
 
 			if (currentEmote.IsOnWheel)
 			{
-				CreateBagCard(wheelEmplacements[currentEmote.IndexOnWheel - 1], currentEmote);
+				CreateBagCard(wheelEmplacements[currentEmote.IndexOnWheel - 1], currentEmote, wheelBagCard);
 				((WheelBagEmplacement)wheelEmplacements[currentEmote.IndexOnWheel - 1]).IsFilled = true;
+				((WheelBagEmplacement)wheelEmplacements[currentEmote.IndexOnWheel - 1]).SetZOrder();
 				OnSelectNewEmote(currentEmote, replacedEmote);
 			}
 		}
 	}
 
-	private void CreateBagCard(BagEmplacement parent, EmoteInfo info)
+	private void CreateBagCard(BagEmplacement parent, EmoteInfo info, BagCard cardPrefab)
 	{
-		BagCard currentBagCard = Instantiate(bagCard, parent.transform);
+		BagCard currentBagCard = Instantiate(cardPrefab, parent.transform);
 		currentBagCard.Init(info);
 		parent.Init(currentBagCard);
 	}
