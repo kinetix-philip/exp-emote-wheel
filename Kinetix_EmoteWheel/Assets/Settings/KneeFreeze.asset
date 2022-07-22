@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emoteRarity: 4
   emoteElement: 5
-  indexOnWheel: 8
+  indexOnWheel: 0
   isOnWheel: 0
   hasVFX: 1
   hoveredSilhouette: {fileID: 4228124461195758371, guid: d57d9ca29b6d34f40a77e63998d95eae, type: 3}

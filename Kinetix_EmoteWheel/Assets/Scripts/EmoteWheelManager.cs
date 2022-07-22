@@ -32,6 +32,9 @@ public class EmoteWheelManager : MonoBehaviour
 	[SerializeField] private int nEmotesSelectables;
 	private bool isBagOpen;
 
+	[Header("Shop Parameters")]
+	[SerializeField] private GameObject shop;
+
 	[SerializeField] private List<EmoteInfo> emotes;
 
 	private List<EmoteInfo> selectedEmotes = new List<EmoteInfo>();
@@ -65,6 +68,12 @@ public class EmoteWheelManager : MonoBehaviour
 		shortCuts.OffBar += ShortCuts_OffBar;
 		shortCuts.OnBag += ShortCuts_OnBag;
 		shortCuts.OnWheel += ShortCuts_OnWheel;
+		shortCuts.OnShop += ShortCuts_OnShop;
+	}
+
+	private void ShortCuts_OnShop()
+	{
+		shop.SetActive(true);
 	}
 
 	private void ShortCuts_OffBar()
